@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h5 class="my-4">Registration</h5>
+        <div class="col-12 mt-5">
+            {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+
+                {% if form.vars.errors|length %}
+                    <div class="alert alert-danger">
+                        {% for error in form.vars.errors %}
+                            {{ error.messageTemplate }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+
+                {{ form_row(form.email) }}
+                {{ form_row(form.password) }}
+                {{ form_rest(form) }}
+
+            <div class="mb-3">
+                <button class="btn btn-primary">
+                    Valider
+                </button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

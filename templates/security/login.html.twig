@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {% if error %}
+                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <form action="{{ path('app_login') }}" method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Email:</label>
+                        <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="password" name="_password">
+                    </div>
+
+                    <div class="mb-3">
+                        Solution expected : {{ solution|map(value => value)|join('-')}}
+                    </div>
+
+                    <puzzle-captcha
+                            width="350"
+                            height="200"
+                            piece-width="80"
+                            piece-height="50"
+                            src="{{ path('captcha', {'challenge': challenge}) }}"
+                    >
+                        <input type="text" class="captcha-answer"/>
+                    </puzzle-captcha>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
